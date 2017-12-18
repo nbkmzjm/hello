@@ -3,29 +3,45 @@ const express = require('express')
 const app = express()
 var http = require('http').Server(app);
 var path = require('path');
+var expValidator = require('express-validator');
+var cookieParser = require('cookie-parser');
+var debug = require('debug')('http')
+const webpush = require('web-push')
+const xoauth2 = require('xoauth2')
+var moment = require('moment');
+var now = moment();
+var bodyParser = require('body-parser');
+var fs = require('fs')
 
-app.use(express.static(__dirname + '/public'))
+var bcrypt = require('bcryptjs');
+var _ = require('underscore');
+
+// app.use(express.static(__dirname + '/public'))
 // app.listen(3000, () => console.log('server running on post 3000'))
 
 
-// app.set('view engine', 'html');
+app.set('view engine', 'pug');
 // app.engine('html', require('ejs').renderFile);
-// app.set('views', path.join(__dirname + '/public', 'views'));
-// app.set("view options", {
-// 	layout: true
-// });
-
-// var db = require('./db.js');
-
-http.listen(PORT, function() {
-	console.log('Helllo Express server started on PORT ' + PORT);
-	
+app.set('views', path.join(__dirname + '/public', 'views'));
+app.set("view options", {
+	layout: true
 });
+
+var db = require('./db.js');
+
 
 
 app.get('/', function(req, res, next) {
-
-	res.render('index')
+	console.log('helosg from hoem ')
+	db.employee.findAll().then(function(employee){
+		console.log(employee)
+		res.render('index',{
+			JSONdata: JSON.stringify({
+				employee:employee
+			})
+		})
+	})
+	
 	
 	// db.assign.findAll({
 	// 	include: [db.user]
@@ -33,7 +49,7 @@ app.get('/', function(req, res, next) {
 	// 	// next();
 	// 	return [assigns, db.user.findAll()];
 	// }).spread(function(assigns, users) {
-	// 	// console.log('suerssssssssss' + JSON.stringify(users));
+	// 	// console.log('suerssssssssss' + JSON.stlringify(users));
 	// 	// console.log('ggggggggggggg' + JSON.stringify(assigns));
 	// 	// console.log('yyyyyyyyyy' + JSON.stringify(dateHeader));
 	// 	res.render('index', {
@@ -51,3 +67,26 @@ app.get('/', function(req, res, next) {
 	// 	});
 	// });
 });
+
+
+
+db.sequelize.sync(
+	{force: true}
+	).then(function() {
+		
+		http.listen(PORT, function() {
+			console.log('Helllo Express server started on PORT ' + PORT);
+			db.employee.create({
+				name: 'thien',
+				email: 'tk@yahoo.com',
+				username:'nbkmzjm',
+				title: 'rph'
+			}).then(function(employee){
+				// console.log(employee)
+
+
+			})
+			
+		});
+
+	});

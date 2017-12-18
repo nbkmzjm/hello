@@ -3,3 +3,5 @@ node_modules
 npm
 npm-cli.js
 npm.cmd
+nodemon
+nodemon.cmd
