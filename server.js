@@ -16,7 +16,7 @@ var fs = require('fs')
 var bcrypt = require('bcryptjs');
 var _ = require('underscore');
 
-// app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/public'))
 // app.listen(3000, () => console.log('server running on post 3000'))
 
 
