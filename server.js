@@ -4,15 +4,18 @@ const app = express()
 var http = require('http').Server(app);
 var path = require('path');
 
-// app.use(express.static('public'))
+app.use(express.static(__dirname + '/public'))
 // app.listen(3000, () => console.log('server running on post 3000'))
 
 
-app.set('view engine', 'pug');
-app.set('views', path.join(__dirname + '/public', 'views'));
-app.set("view options", {
-	layout: true
-});
+// app.set('view engine', 'html');
+// app.engine('html', require('ejs').renderFile);
+// app.set('views', path.join(__dirname + '/public', 'views'));
+// app.set("view options", {
+// 	layout: true
+// });
+
+// var db = require('./db.js');
 
 http.listen(PORT, function() {
 	console.log('Helllo Express server started on PORT ' + PORT);
