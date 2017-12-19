@@ -1,13 +1,13 @@
 module.exports = {
   apps: [{
     name: 'wko',
-    script: './index.js'
+    script: './server.js'
   }],
   deploy: {
     production: {
       user: 'ubuntu',
-      host: 'ubuntu@ec2-54-82-246-106.compute-1.amazonaws.com',
-      key: '~/.ssh/wkoApp.pem',
+      host: 'ec2-18-220-245-156.us-east-2.compute.amazonaws.com',
+      key: '~/.ssh/wko.pemx',
       ref: 'origin/master',
       repo: 'git@github.com:nbkmzjm/wko.git',
       path: '/home/ubuntu/wko',
