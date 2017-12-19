@@ -16,7 +16,7 @@ var fs = require('fs')
 var bcrypt = require('bcryptjs');
 var _ = require('underscore');
 
-app.use(express.static(__dirname + '/public'))
+// app.use(express.static(__dirname + '/public'))
 // app.listen(3000, () => console.log('server running on post 3000'))
 
 
@@ -33,14 +33,14 @@ var db = require('./db.js');
 
 app.get('/', function(req, res, next) {
 	console.log('helosg from hoem ')
-	// db.employee.findAll().then(function(employee){
-	// 	console.log(employee)
+	db.employee.findAll().then(function(employee){
+		console.log(employee)
 		res.render('index',{
-			// JSONdata: JSON.stringify({
-			// 	employee:employee
-			// })
+			JSONdata: JSON.stringify({
+				employee:employee
+			})
 		})
-	// })
+	})
 	
 	
 	// db.assign.findAll({
@@ -68,8 +68,8 @@ app.get('/', function(req, res, next) {
 	// });
 });
 
-http.listen(PORT, function() {
-	console.log('Helllo Express server started on PORT ' + PORT);
+// http.listen(PORT, function() {
+// 	console.log('Helllo Express server started on PORT ' + PORT);
 	// db.employee.create({
 	// 	name: 'thien',
 	// 	email: 'tk@yahoo.com',
@@ -81,25 +81,25 @@ http.listen(PORT, function() {
 
 	// })
 	
-});
+// });
 
-// db.sequelize.sync(
-// 	{force: true}
-// 	).then(function() {
+db.sequelize.sync(
+	{force: true}
+	).then(function() {
 		
-// 		http.listen(PORT, function() {
-// 			console.log('Helllo Express server started on PORT ' + PORT);
-// 			db.employee.create({
-// 				name: 'thien',
-// 				email: 'tk@yahoo.com',
-// 				username:'nbkmzjm',
-// 				title: 'rph'
-// 			}).then(function(employee){
-// 				// console.log(employee)
+		http.listen(PORT, function() {
+			console.log('Helllo Express server started on PORT ' + PORT);
+			db.employee.create({
+				name: 'thien',
+				email: 'tk@yahoo.com',
+				username:'nbkmzjm',
+				title: 'rph'
+			}).then(function(employee){
+				// console.log(employee)
 
 
-// 			})
+			})
 			
-// 		});
+		});
 
-// 	});
+	});
