@@ -6,7 +6,7 @@ var sequelize;
 
 if (env === 'production'){
 	
-	sequelize = new Sequelize(process.env.DATABASE_URL, {
+	sequelize = new Sequelize("postgres://nbkmzjm:Fish1ing!85@wkoinstance.cpz3l8fshdry.us-east-2.rds.amazonaws.com:5432/wkoDB", {
 		dialect: 'postgres'
 	});
 } else {
