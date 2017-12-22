@@ -4,7 +4,7 @@ console.log(env)
 var sequelize;
 
 
-if (env === 'production'){
+if (env === 'development'){
 	
 	sequelize = new Sequelize("postgres://nbkmzjm:Fish1ing!85@wkoinstance.cpz3l8fshdry.us-east-2.rds.amazonaws.com:5432/wkoDB", {
 		dialect: 'postgres'

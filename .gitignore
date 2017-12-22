@@ -5,3 +5,4 @@ npm-cli.js
 npm.cmd
 nodemon
 nodemon.cmd
+.env

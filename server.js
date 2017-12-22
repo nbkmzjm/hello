@@ -1,4 +1,6 @@
+var dotenv = require('dotenv').config();
 var PORT = process.env.PORT || 3000;
+console.log(PORT);
 const express = require('express')
 const app = express()
 var http = require('http').Server(app);
@@ -12,7 +14,6 @@ var moment = require('moment');
 var now = moment();
 var bodyParser = require('body-parser');
 var fs = require('fs')
-
 var bcrypt = require('bcryptjs');
 var _ = require('underscore');
 
