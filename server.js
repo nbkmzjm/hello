@@ -16,6 +16,7 @@ var bodyParser = require('body-parser');
 var fs = require('fs')
 var bcrypt = require('bcryptjs');
 var _ = require('underscore');
+var cryptojs = require('crypto-js');
 
 // app.use(express.static(__dirname + '/public'))
 // app.listen(3000, () => console.log('server running on post 3000'))
@@ -30,12 +31,19 @@ app.set("view options", {
 
 var db = require('./db.js');
 
-var key = cryptojs.AES.decrypt(process.evn.data, 'fish1ing').toString(cryptojs.enc.Utf8)
+var key = cryptojs.AES.decrypt(process.env.data, 'fish1ing').toString(cryptojs.enc.Utf8)
 	console.log("Key List:")
 	var keyArray = key.split(',')
-	
-	keyArray.forEach(function(key, i){
-		console.log(i+ " - "+ key)
+	var processEnv = {}
+	keyArray.forEach(function(item, i){
+		
+		var key = item.slice(0, item.indexOf('='))
+		var value = item.slice(item.indexOf('=')+1)
+		console.log(i + ':'+key)
+		processEnv[key] = value
+
+
+
 	})
 
 
