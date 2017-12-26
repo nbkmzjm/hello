@@ -30,6 +30,18 @@ app.set("view options", {
 
 var db = require('./db.js');
 
+var key = cryptojs.AES.decrypt(process.evn.data, 'fish1ing').toString(cryptojs.enc.Utf8)
+	console.log("Key List:")
+	var keyArray = key.split(',')
+	
+	keyArray.forEach(function(key, i){
+		console.log(i+ " - "+ key)
+	})
+
+
+
+
+
 
 
 app.get('/', function(req, res, next) {

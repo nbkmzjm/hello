@@ -17,10 +17,10 @@ var data = process.env.data
 
 function keyList(encrytedKey){
 
-	var key = cryptojs.AES.decrypt(encrytedKey, 'fish1ing').toString(cryptojs.enc.Utf8)
+	var key = cryptojs.AES.decrypt(encrytedKey, mkey).toString(cryptojs.enc.Utf8)
 	console.log("Key List:")
 	var keyArray = key.split(',')
-	keyArray.splice(1,1)
+	
 	keyArray.forEach(function(key, i){
 		console.log(i+ " - "+ key)
 	})
@@ -33,15 +33,46 @@ function keyList(encrytedKey){
 
 function addKey(){
 	
-	rl.question('Please type key:value or a number according to List to delete:', function(key){
-		if (key === 'delete'){
-			console.log('delete')
-			fs.readFile('.env', 'utf8', function(err, encrytedKey){
-		if (err) return console.log(err)
+	rl.question('Please type key:value entry or DEL for delete:', function(key){
+		if (key === 'del' || key === 'DEL'){
 
-			keyList(encrytedKey.substring(5))
-			addKey()
-	})
+			
+			fs.readFile('.env', 'utf8', function(err, encrytedKey){
+				if (err) return console.log(err)
+				rl.question('Please select item to delete:', function(item){
+					if (item !== ''){
+
+						
+						var key = cryptojs.AES.decrypt(encrytedKey.substring(5), mkey).toString(cryptojs.enc.Utf8)
+						var keyArray = key.split(',')
+						keyArray.splice(item,1)
+						
+						var updatedKey = keyArray.join(',')
+						var encryptedKeys = 'data='+ cryptojs.AES.encrypt(updatedKey, mkey).toString()
+						fs.writeFile('.env', encryptedKeys, function(err){
+							if (err) return console.log(err)
+							fs.readFile('.env', 'utf8', function(err, encrytedKey){
+								if (err) return console.log(err)
+
+									keyList(encrytedKey.substring(5))
+									addKey()
+							})
+						})
+					}else{
+						
+						fs.readFile('.env', 'utf8', function(err, encrytedKey){
+							if (err) return console.log(err)
+								keyList(encrytedKey.substring(5))
+								addKey()
+						})
+
+					}
+
+					
+				})
+				
+
+			})
 			
 
 		} else if (key.indexOf('=')!== -1){
@@ -54,7 +85,7 @@ function addKey(){
 				}
 
 				
-				var encryptedKeys = 'data='+ cryptojs.AES.encrypt(keys, 'fish1ing').toString()
+				var encryptedKeys = 'data='+ cryptojs.AES.encrypt(keys, mkey).toString()
 				// var data = encryptedKey
 				fs.writeFile('.env', encryptedKeys, function(err){
 					if (err) return console.log(err)
